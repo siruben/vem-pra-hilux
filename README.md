@@ -17,3 +17,6 @@ Substitui o ficheiro mantendo o nome e incrementa a versão `V` em `sw.js`. A ap
 
 ## Plano de evolução
 Consulta [ROADMAP.md](ROADMAP.md) para o plano por fases e a lista de testes manuais.
+
+## Verificações automáticas
+O GitHub Actions executa smoke tests em pull requests e em pushes para `main`. Os testes verificam a existência dos ficheiros essenciais, a validade JSON do manifesto e a sintaxe dos scripts JavaScript. Não substituem testes reais no navegador ou no telemóvel.
