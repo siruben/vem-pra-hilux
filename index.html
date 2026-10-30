@@ -218,7 +218,7 @@ function voiceBubble(file,text,out){
   pl.onclick=()=>{if(a.paused){if(curVoice&&curVoice!==a)curVoice.pause();curVoice=a;a.play().catch(()=>sys('🔇 Som bloqueado neste visor. Abre o ficheiro no Chrome.'))}else a.pause()};
   const done=new Promise(r=>{['ended','pause','error'].forEach(ev=>a.addEventListener(ev,r))});
   setTimeout(reveal,1200);
-  return {e,a,done,play:()=>{curVoice=a;return a.play().catch(()=>{})}}}
+  return {e,a,done,play:()=>{if(curVoice&&curVoice!==a)curVoice.pause();curVoice=a;return a.play().catch(()=>{})}}}
 async function inVoice(file,text,wait){
   await typing(1000,true);sfx('pop');clock++;
   const v=voiceBubble(file,text,false);await v.play();
