@@ -1,5 +1,5 @@
 /* Vem prá Hilux: cache offline com atualização segura. */
-const V = 'hilux-v2';
+const V = 'hilux-v3';
 const CORE_ASSETS = ['./', 'index.html', 'manifest.webmanifest'];
 const OPTIONAL_ASSETS = [
   'assets/img/avatar-celia.jpg','assets/img/avatar-neide.jpg','assets/img/avatar-rubinho.jpg',
