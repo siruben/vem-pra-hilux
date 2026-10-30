@@ -197,7 +197,11 @@ async function inMsg(text){await typing(Math.min(1500,450+text.length*20));sfx('
 async function inImage(emoji,cap){await typing(900);sfx('pop');clock++;add(`<div class="b">${PH[emoji]?`<img class="ph" src="${PH[emoji]}">`:`<div class="img">${emoji}</div>`}${cap}<span class="tm">${hhmm()}</span></div>`,'in');await sleep(500)}
 async function inSticker(emoji){await typing(700);sfx('pop');add(`<div class="stk">${emoji}</div>`,'in');await sleep(400)}
 let curVoice=null;
-function duck(on){if(musG)musG.gain.value=on?.05:.2;aud.volume=on?.1:.4}
+function duck(on){
+  if(musG)musG.gain.value=on?.05:.2;
+  aud.volume=on?.1:.4;
+  if(song && !song.paused) song.volume=on?.15:.9;
+}
 const fmt=s=>{s=Math.max(0,Math.round(s||0));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')};
 function voiceBubble(file,text,out){
   const bars=Array.from({length:26},()=>`<i style="height:${ri(5,22)}px"></i>`).join('');
@@ -208,8 +212,9 @@ function voiceBubble(file,text,out){
   a.onloadedmetadata=()=>{du.textContent=fmt(a.duration)};
   a.ontimeupdate=()=>{const p=a.currentTime/(a.duration||1);w.forEach((b,i)=>b.classList.toggle('on',i/w.length<p));du.textContent=fmt(a.duration-a.currentTime)};
   a.onplay=()=>{pl.textContent='⏸';duck(true);reveal()};
-  a.onpause=()=>{pl.textContent='▶';duck(false)};
-  a.onended=()=>{pl.textContent='▶';duck(false);du.textContent=fmt(a.duration);w.forEach(b=>b.classList.remove('on'))};
+  a.onpause=()=>{pl.textContent='▶';if(curVoice===a)duck(false)};
+  a.onerror=()=>{pl.textContent='▶';if(curVoice===a){curVoice=null;duck(false)}};
+  a.onended=()=>{pl.textContent='▶';if(curVoice===a){curVoice=null;duck(false)}du.textContent=fmt(a.duration);w.forEach(b=>b.classList.remove('on'))};
   pl.onclick=()=>{if(a.paused){if(curVoice&&curVoice!==a)curVoice.pause();curVoice=a;a.play().catch(()=>sys('🔇 Som bloqueado neste visor. Abre o ficheiro no Chrome.'))}else a.pause()};
   const done=new Promise(r=>{['ended','pause','error'].forEach(ev=>a.addEventListener(ev,r))});
   setTimeout(reveal,1200);
