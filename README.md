@@ -7,9 +7,13 @@ Joga em: https://siruben.github.io/vem-pra-hilux/
 ## Estrutura
 - `index.html`: o jogo (HTML, CSS e JavaScript)
 - `assets/img/`: avatares, capa, fundo do chat, selfie, pickup e os 5 finais
-- `assets/audio/`: música de fundo, canção original e as notas de voz
-- `assets/icons/`: ícone da app
+- `assets/audio/`: música de fundo, canção original e notas de voz
+- `assets/icons/`: ícones da app
 - `manifest.webmanifest` e `sw.js`: instalação no telemóvel e modo offline
+- `ROADMAP.md`: prioridades, critérios de aceitação e testes de regressão
 
 ## Atualizar imagens ou áudios
-Substitui o ficheiro mantendo o nome e muda a versão em `sw.js` (`const V = 'hilux-v2'`), para os telemóveis voltarem a descarregá-lo.
+Substitui o ficheiro mantendo o nome e incrementa a versão `V` em `sw.js`. A app shell é necessária para instalar o Service Worker; os restantes recursos multimédia são guardados individualmente para que um ficheiro opcional em falta não bloqueie a instalação.
+
+## Plano de evolução
+Consulta [ROADMAP.md](ROADMAP.md) para o plano por fases e a lista de testes manuais.
