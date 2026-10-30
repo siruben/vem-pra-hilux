@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Vem prá Hilux</title>
+<meta name="description" content="Jogo de sedução com humor sertanejo. +18, não explícito.">
+<meta name="theme-color" content="#0b141a">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="assets/icons/icon-192.png">
+<link rel="apple-touch-icon" href="assets/icons/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Vem prá Hilux">
+<meta property="og:description" content="Consegues convencer a Célia a subir? Jogo +18 com humor sertanejo.">
+<meta property="og:image" content="https://siruben.github.io/vem-pra-hilux/assets/img/capa-og.jpg">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+:root{--hd:#202c33;--bg:#0b141a;--in:#202c33;--out:#005c4b;--tx:#e9edef;--sub:#8696a0;--ac:#00a884;--bl:#53bdeb;--pink:#ff2e93;--amber:#ffb020;--green:#3ddc84;--red:#ff5a5f}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
+html,body{height:100%;margin:0;background:#000;touch-action:manipulation}
+#phone{max-width:520px;height:100vh;height:100dvh;margin:0 auto;display:flex;flex-direction:column;background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;position:relative;overflow:hidden}
+#hdr{display:flex;align-items:center;gap:10px;background:var(--hd);padding:8px 10px;min-height:58px}
+.back{font-size:26px;color:var(--sub)}
+.av{width:40px;height:40px;border-radius:50%;background:#2a3942;display:flex;align-items:center;justify-content:center;font-size:22px}
+.nm{flex:1;display:flex;flex-direction:column;min-width:0}
+.nm b{font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nm small{font-size:12px;color:var(--sub)}
+.hr{display:flex;align-items:center;gap:6px}
+#pill{background:#0008;padding:4px 9px;border-radius:99px;font-size:13px;font-weight:700;color:var(--amber)}
+.hr button{background:none;border:0;font-size:18px;color:var(--tx);cursor:pointer;padding:4px}
+#bar{height:3px;background:#0008}
+#fill{height:100%;width:20%;background:linear-gradient(90deg,var(--amber),var(--pink));transition:width .5s}
+#toast{position:absolute;top:64px;left:10px;right:10px;background:#2a3942;border-radius:12px;padding:10px 14px;z-index:20;box-shadow:0 6px 20px #000a;display:flex;flex-direction:column;font-size:14px}
+#toast span{color:var(--sub)}
+#chat{flex:1;overflow-y:auto;padding:10px 10px 6px;background:#0b141a radial-gradient(#ffffff0a 1px,transparent 1px);background-size:20px 20px;scroll-behavior:smooth}
+.msg{display:flex;margin:3px 0}
+.msg.in{justify-content:flex-start}.msg.out{justify-content:flex-end}.msg.sys{justify-content:center;margin:8px 0}
+.b{max-width:82%;padding:6px 9px 5px;border-radius:8px;font-size:15.5px;line-height:1.35;word-wrap:break-word;box-shadow:0 1px 1px #0006}
+.in .b{background:var(--in);border-top-left-radius:0}
+.out .b{background:var(--out);border-top-right-radius:0}
+.tm{float:right;margin:7px 0 -3px 10px;font-size:11px;color:var(--sub)}
+.tk{margin-left:3px;color:var(--sub)}.tk.rd{color:var(--bl)}
+.sys span{background:#182229;color:var(--sub);padding:5px 11px;border-radius:8px;font-size:12.5px}
+.sys span.up{color:var(--green)}.sys span.dn{color:var(--red)}
+.dots i{display:inline-block;width:7px;height:7px;margin:0 2px;border-radius:50%;background:var(--sub);animation:bl 1s infinite}
+.dots i:nth-child(2){animation-delay:.2s}.dots i:nth-child(3){animation-delay:.4s}
+@keyframes bl{0%,60%,100%{opacity:.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
+.voice{display:flex;align-items:center;gap:8px;min-width:230px}
+.pl{background:none;border:0;color:var(--sub);font-size:22px;cursor:pointer;padding:0}
+.wave{flex:1;height:26px;display:flex;align-items:center;gap:2px}
+.wave i{width:3px;background:var(--sub);border-radius:2px}
+.du{font-size:12px;color:var(--sub)}
+.tr{margin-top:6px;padding-top:6px;border-top:1px solid #ffffff18;font-size:14.5px;font-style:italic}
+.img{width:190px;height:150px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:76px;background:linear-gradient(135deg,#7a3a00,#d38a3a);margin-bottom:4px}
+.stk{font-size:68px;line-height:1;padding:0 6px}
+#foot{background:var(--bg);padding:6px 10px 10px}
+#fake div{background:#2a3942;border-radius:24px;padding:11px 16px;color:var(--sub);font-size:15px}
+#choices{display:flex;flex-direction:column;gap:6px;max-height:52vh;overflow-y:auto}
+#choices button{background:#1f2c34;border:1px solid #2f4350;color:var(--tx);text-align:left;border-radius:12px;padding:9px 12px;font-size:15px;font-family:inherit;cursor:pointer;line-height:1.35}
+#choices button:active{background:#2a3942}
+#choices small{display:block;color:var(--ac);font-weight:700;font-size:11.5px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px}
+#sheet{position:absolute;inset:0;background:rgba(5,10,14,.97);z-index:10;overflow:auto;display:flex;align-items:center;justify-content:center;padding:18px}
+.sc{width:100%;max-width:420px;display:flex;flex-direction:column;gap:12px;text-align:center}
+.sc p{margin:0;line-height:1.45;color:#d6dde0}
+.sc h2{font-family:Impact,"Arial Black",sans-serif;font-size:28px;letter-spacing:1px;text-transform:uppercase;margin:0}
+.title{font-family:Impact,"Arial Black",sans-serif;font-size:54px;line-height:.95;margin:0;text-transform:uppercase}
+.title small{display:block;font-size:19px;color:var(--amber);text-shadow:0 0 10px var(--amber);margin-top:8px}
+.neon{color:#fff;text-shadow:0 0 6px var(--pink),0 0 18px var(--pink),0 0 36px var(--pink);animation:fl 3s infinite}
+@keyframes fl{0%,92%,100%{opacity:1}94%{opacity:.6}96%{opacity:1}98%{opacity:.7}}
+.b18{font-family:Impact,sans-serif;font-size:90px;color:var(--red);text-shadow:0 0 20px var(--red)}
+.bt{background:linear-gradient(180deg,var(--pink),#c4166e);color:#fff;border:0;border-radius:14px;padding:16px;font-size:19px;font-weight:800;cursor:pointer;box-shadow:0 4px 0 #7a0c45;font-family:inherit}
+.bt:active{transform:translateY(3px);box-shadow:0 1px 0 #7a0c45}
+.bt.alt{background:linear-gradient(180deg,#2f4350,#22323b);box-shadow:0 4px 0 #101b21}
+.bt.sm{flex:1;padding:12px;font-size:22px}
+.row{display:flex;gap:10px}
+.m2{min-height:24px;font-weight:700;color:var(--amber)}
+.gain{font-weight:800;color:var(--green);font-size:18px}
+.bar2{position:relative;height:46px;background:#0008;border-radius:12px;overflow:hidden;border:1px solid #ffffff22}
+.zone{position:absolute;left:40%;width:20%;top:0;bottom:0;background:#3ddc8455;border-left:2px solid var(--green);border-right:2px solid var(--green)}
+.mk{position:absolute;top:0;bottom:0;width:8px;margin-left:-4px;background:var(--amber);box-shadow:0 0 12px var(--amber);border-radius:4px}
+.meter{height:26px;background:#0008;border-radius:99px;overflow:hidden;border:1px solid #ffffff22}
+.meter>div{height:100%;width:0;background:linear-gradient(90deg,var(--amber),var(--pink))}
+canvas{width:100%;max-width:320px;height:auto;margin:0 auto;border-radius:12px;border:2px solid #ffffff22;display:block}
+.pads{display:flex;gap:10px}
+.pad{flex:1;aspect-ratio:1;font-size:44px;background:#22323b;border:2px solid #2f4350;border-radius:18px;cursor:pointer}
+.pad.on{background:var(--pink);box-shadow:0 0 24px var(--pink);transform:scale(1.06)}
+.truck{width:100%;max-width:320px;margin:0 auto;display:block;animation:bob 1.2s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-4px)}}
+.emoji{font-size:64px}
+.sub{font-size:13px;opacity:.7}
+
+.wave i.on{background:var(--ac)}
+.out .wave i{background:#7fc4b4}.out .wave i.on{background:#fff}
+.out .pl{color:#cfe}
+.av{overflow:hidden;flex:none}.av img{width:100%;height:100%;object-fit:cover;display:block}
+.duo{display:flex;justify-content:center;gap:14px}.duo img{width:84px;height:84px;border-radius:50%;object-fit:cover;border:3px solid var(--pink);box-shadow:0 0 18px #ff2e9388}
+#chat{background:#0b141a url("assets/img/fundo-chat.jpg") repeat;background-size:380px 380px}
+#sheet.cover{background:linear-gradient(180deg,rgba(5,10,14,.45) 0%,rgba(5,10,14,.05) 32%,rgba(5,10,14,.1) 58%,rgba(5,10,14,.9) 100%),url("assets/img/capa.jpg") center top/cover no-repeat}
+.sc.cv{min-height:calc(100dvh - 36px);justify-content:flex-start}
+.sc.cv .grow{flex:1;min-height:120px}
+.sc.cv .stack{display:flex;flex-direction:column;gap:10px}
+.sc.cv p,.sc.cv .sub{text-shadow:0 1px 6px #000}
+.hilux{width:100%;max-width:340px;margin:0 auto;display:block;filter:drop-shadow(0 0 3px #ff2e93) drop-shadow(0 0 22px #ff2e9399);animation:bob 1.2s ease-in-out infinite}
+.ph{width:230px;max-width:100%;border-radius:6px;display:block;margin-bottom:4px}
+#sheet:not(.cover){background:#050a0e}
+#sheet{align-items:flex-start;justify-content:center}.sc{margin:auto}
+.fin{width:100%;max-width:330px;border-radius:14px;margin:0 auto;display:block;border:2px solid #ff2e9366;box-shadow:0 0 24px #ff2e9355}
+</style>
+</head>
+<body>
+<div id="phone">
+  <header id="hdr">
+    <div class="back">‹</div><div id="hav" class="av"></div>
+    <div class="nm"><b id="hname">Célia 🤠</b><small id="hsub">online</small></div>
+    <div class="hr"><span id="pill">❤️ 20</span><button id="bmus" title="Música">🎵</button><button id="bsfx" title="Sons">🔔</button></div>
+  </header>
+  <div id="bar"><div id="fill"></div></div>
+  <div id="toast" hidden></div>
+  <main id="chat"></main>
+  <footer id="foot"><div id="fake"><div>Mensagem</div></div><div id="choices"></div></footer>
+  <div id="sheet" hidden></div>
+</div>
+<audio id="aud" loop preload="none"></audio>
+
+<script>
+const VOZ={celia1:"assets/audio/voz-celia-1.mp3",celia2:"assets/audio/voz-celia-2.mp3",rubinho:"assets/audio/voz-rubinho-1.mp3"};
+</script>
+<script>
+const MUS={bg:"assets/audio/fundo.mp3",song:"assets/audio/original.mp3"};
+</script>
+<script>
+const $=s=>document.querySelector(s);
+const chat=$('#chat'),foot=$('#foot'),choices=$('#choices'),fake=$('#fake'),sh=$('#sheet'),hsub=$('#hsub'),hname=$('#hname'),hav=$('#hav'),pill=$('#pill'),fill=$('#fill'),aud=$('#aud');
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const rnd=(a,b)=>Math.random()*(b-a)+a, ri=(a,b)=>Math.round(rnd(a,b));
+let charm=20,laugh=false,cur='celia';const store={};
+const CT={celia:{n:'Célia 🤠'},neide:{n:'Neide 💅'},ze:{n:'Zé do Gado 🐂'}};
+const AV={celia:"assets/img/avatar-celia.jpg",rubinho:"assets/img/avatar-rubinho.jpg",neide:"assets/img/avatar-neide.jpg",ze:"assets/img/avatar-ze.jpg"};
+const PIC={hilux:"assets/img/hilux-lado.png"};
+const PH={selfie:"assets/img/selfie-celia.jpg"};
+const FIN={dueto:"assets/img/final-dueto.jpg",sobe:"assets/img/final-sobe.jpg",boleia:"assets/img/final-boleia.jpg",bolo:"assets/img/final-bolo.jpg",tampa:"assets/img/final-tampa.jpg"};
+const FINK={'Dueto no palco':'dueto','Ela sobe!':'sobe','Boleia até casa':'boleia','Amigo do bolo':'bolo','Tampa épica':'tampa'};
+function setAv(k){hav.innerHTML='<img alt="" src="'+AV[k]+'">'}
+
+
+/* ================= ÁUDIO (tudo sintetizado) ================= */
+let AC=null,sfxG,musG,sfxOn=true,musOn=true,timer=null,nextT=0,mStep=0;
+function initAudio(){if(AC)return;try{AC=new(window.AudioContext||window.webkitAudioContext)();sfxG=AC.createGain();sfxG.gain.value=.55;sfxG.connect(AC.destination);musG=AC.createGain();musG.gain.value=.2;musG.connect(AC.destination)}catch(e){AC=null}if(AC&&AC.resume)AC.resume()}
+function tone(f,t0,d,type,v,dest,f2){const o=AC.createOscillator(),g=AC.createGain();o.type=type||'sine';o.frequency.setValueAtTime(f,t0);if(f2)o.frequency.exponentialRampToValueAtTime(f2,t0+d);g.gain.setValueAtTime(.0001,t0);g.gain.exponentialRampToValueAtTime(v,t0+.01);g.gain.exponentialRampToValueAtTime(.0001,t0+d);o.connect(g);g.connect(dest);o.start(t0);o.stop(t0+d+.03)}
+function nz(t0,d,v,dest){const n=AC.sampleRate*d|0,b=AC.createBuffer(1,n,AC.sampleRate),a=b.getChannelData(0);for(let i=0;i<n;i++)a[i]=Math.random()*2-1;const s=AC.createBufferSource(),g=AC.createGain(),h=AC.createBiquadFilter();h.type='highpass';h.frequency.value=6000;s.buffer=b;g.gain.setValueAtTime(v,t0);g.gain.exponentialRampToValueAtTime(.0001,t0+d);s.connect(h);h.connect(g);g.connect(dest);s.start(t0)}
+function kick(t,d){const o=AC.createOscillator(),g=AC.createGain();o.frequency.setValueAtTime(150,t);o.frequency.exponentialRampToValueAtTime(40,t+.12);g.gain.setValueAtTime(.8,t);g.gain.exponentialRampToValueAtTime(.0001,t+.2);o.connect(g);g.connect(d);o.start(t);o.stop(t+.22)}
+const S={
+ pop(){const t=AC.currentTime;tone(740,t,.08,'sine',.3,sfxG);tone(988,t+.09,.12,'sine',.3,sfxG)},
+ send(){tone(520,AC.currentTime,.08,'sine',.25,sfxG,720)},
+ tick(){tone(600,AC.currentTime,.05,'square',.12,sfxG)},
+ good(){const t=AC.currentTime;tone(880,t,.1,'sine',.3,sfxG);tone(1320,t+.08,.18,'sine',.3,sfxG)},
+ bad(){tone(160,AC.currentTime,.25,'sawtooth',.2,sfxG,110)},
+ win(){const t=AC.currentTime;[523,659,784,1047].forEach((f,i)=>tone(f,t+i*.09,.22,'triangle',.3,sfxG))},
+ lose(){tone(330,AC.currentTime,.45,'sawtooth',.2,sfxG,150)},
+ hit(){const t=AC.currentTime;tone(180,t,.25,'sawtooth',.3,sfxG,60);nz(t,.15,.3,sfxG)},
+ rev(n){tone(70+n*5,AC.currentTime,.1,'sawtooth',.18,sfxG,95+n*5)},
+ voice(){const t=AC.currentTime;for(let i=0;i<5;i++)tone(280+Math.random()*220,t+i*.12,.1,'triangle',.18,sfxG)},
+ viola(){const t=AC.currentTime;tone(392,t,.45,'triangle',.4,sfxG);tone(784,t,.2,'triangle',.15,sfxG)},
+ zab(){kick(AC.currentTime,sfxG)},
+ horn(){const t=AC.currentTime;tone(440,t,.35,'square',.18,sfxG);tone(554,t,.35,'square',.13,sfxG)},
+ moo(){tone(130,AC.currentTime,.7,'sawtooth',.2,sfxG,85)}
+};
+function sfx(n,a){if(!AC||!sfxOn)return;try{S[n](a)}catch(e){}}
+const CH=[[196,247,294],[262,330,392],[294,370,440],[196,247,294]],ARP=[0,1,2,1,0,1,2,1];
+function mstep(s,t){const ch=CH[(s>>3)%4],i=s&7;
+ if(i===0)tone(ch[0]/2,t,.4,'triangle',.7,musG);
+ if(i===4)tone(ch[2]/2,t,.35,'triangle',.5,musG);
+ tone(ch[ARP[i]]*2,t,.16,'triangle',.35,musG);
+ if(i===0||i===4)kick(t,musG);else nz(t,.04,.22,musG)}
+function sched(){while(nextT<AC.currentTime+.2){mstep(mStep++,nextT);nextT+=60/108/2}}
+function synthStart(){if(!AC||timer)return;nextT=AC.currentTime+.1;mStep=0;timer=setInterval(sched,40)}
+function synthStop(){clearInterval(timer);timer=null}
+function musicStart(){if(!musOn)return;aud.volume=.4;aud.play().catch(()=>synthStart())}
+function musicStop(){aud.pause();synthStop()}
+$('#bmus').onclick=()=>{initAudio();musOn=!musOn;$('#bmus').textContent=musOn?'🎵':'🔇';musOn?musicStart():musicStop()};
+$('#bsfx').onclick=()=>{initAudio();sfxOn=!sfxOn;$('#bsfx').textContent=sfxOn?'🔔':'🔕'};
+
+/* ================= CHAT ================= */
+let clock=(()=>{const d=new Date();return d.getHours()*60+d.getMinutes()})();
+const hhmm=()=>{const h=Math.floor(clock/60)%24,m=clock%60;return String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')};
+const scroll=()=>{chat.scrollTop=chat.scrollHeight};
+function add(html,cls){const d=document.createElement('div');d.className='msg '+cls;d.innerHTML=html;chat.appendChild(d);scroll();return d}
+function sys(t){add(`<span>${t}</span>`,'sys')}
+function chip(d){if(!d)return;add(`<span class="${d>0?'up':'dn'}">❤️ ${d>0?'+':''}${d} charme</span>`,'sys');sfx(d>0?'good':'bad')}
+function setCharm(d){charm=Math.max(0,Math.min(100,charm+d));fill.style.width=charm+'%';pill.textContent='❤️ '+charm}
+async function typing(ms,rec){hsub.textContent=rec?'a gravar áudio…':'a escrever…';const t=add('<div class="b"><span class="dots"><i></i><i></i><i></i></span></div>','in');await sleep(ms);t.remove();hsub.textContent='online'}
+async function inMsg(text){await typing(Math.min(1500,450+text.length*20));sfx('pop');clock++;add(`<div class="b">${text}<span class="tm">${hhmm()}</span></div>`,'in');await sleep(250)}
+async function inImage(emoji,cap){await typing(900);sfx('pop');clock++;add(`<div class="b">${PH[emoji]?`<img class="ph" src="${PH[emoji]}">`:`<div class="img">${emoji}</div>`}${cap}<span class="tm">${hhmm()}</span></div>`,'in');await sleep(500)}
+async function inSticker(emoji){await typing(700);sfx('pop');add(`<div class="stk">${emoji}</div>`,'in');await sleep(400)}
+let curVoice=null;
+function duck(on){if(musG)musG.gain.value=on?.05:.2;aud.volume=on?.1:.4}
+const fmt=s=>{s=Math.max(0,Math.round(s||0));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')};
+function voiceBubble(file,text,out){
+  const bars=Array.from({length:26},()=>`<i style="height:${ri(5,22)}px"></i>`).join('');
+  const e=add(`<div class="b"><div class="voice"><button class="pl">▶</button><div class="wave">${bars}</div><span class="du">0:00</span></div><div class="tr" hidden>🎙️ ${text}</div><span class="tm">${hhmm()}${out?'<span class="tk">✓</span>':''}</span></div>`,out?'out':'in');
+  const a=new Audio(VOZ[file]);a.preload='auto';
+  const pl=e.querySelector('.pl'),du=e.querySelector('.du'),tr=e.querySelector('.tr'),w=[...e.querySelectorAll('.wave i')];
+  const reveal=()=>{tr.hidden=false;scroll()};
+  a.onloadedmetadata=()=>{du.textContent=fmt(a.duration)};
+  a.ontimeupdate=()=>{const p=a.currentTime/(a.duration||1);w.forEach((b,i)=>b.classList.toggle('on',i/w.length<p));du.textContent=fmt(a.duration-a.currentTime)};
+  a.onplay=()=>{pl.textContent='⏸';duck(true);reveal()};
+  a.onpause=()=>{pl.textContent='▶';duck(false)};
+  a.onended=()=>{pl.textContent='▶';duck(false);du.textContent=fmt(a.duration);w.forEach(b=>b.classList.remove('on'))};
+  pl.onclick=()=>{if(a.paused){if(curVoice&&curVoice!==a)curVoice.pause();curVoice=a;a.play().catch(()=>sys('🔇 Som bloqueado neste visor. Abre o ficheiro no Chrome.'))}else a.pause()};
+  const done=new Promise(r=>{['ended','pause','error'].forEach(ev=>a.addEventListener(ev,r))});
+  setTimeout(reveal,1200);
+  return {e,a,done,play:()=>{curVoice=a;return a.play().catch(()=>{})}}}
+async function inVoice(file,text,wait){
+  await typing(1000,true);sfx('pop');clock++;
+  const v=voiceBubble(file,text,false);await v.play();
+  if(wait)await Promise.race([v.done,sleep(16000)]);else await sleep(2200)}
+async function outVoice(file,text,wait){
+  sfx('send');clock++;const v=voiceBubble(file,text,true);
+  const tk=v.e.querySelector('.tk');setTimeout(()=>{tk.textContent='✓✓'},500);setTimeout(()=>tk.classList.add('rd'),1100);
+  await v.play();
+  if(wait)await Promise.race([v.done,sleep(16000)]);else await sleep(2200)}
+async function outMsg(text){sfx('send');clock++;const e=add(`<div class="b">${text}<span class="tm">${hhmm()}<span class="tk">✓</span></span></div>`,'out');const tk=e.querySelector('.tk');setTimeout(()=>tk.textContent='✓✓',500);setTimeout(()=>tk.classList.add('rd'),1100);await sleep(950)}
+function choose(opts){return new Promise(res=>{
+  fake.hidden=true;
+  choices.innerHTML=opts.map((o,i)=>`<button data-i="${i}"><small>${o.tag}</small>${o.say}</button>`).join('');
+  choices.querySelectorAll('button').forEach(b=>b.onclick=()=>{sfx('tick');choices.innerHTML='';fake.hidden=false;res(+b.dataset.i)});
+  scroll()})}
+async function notify(name,txt){const t=$('#toast');t.innerHTML=`<b>${name}</b><span>${txt}</span>`;t.hidden=false;sfx('pop');await sleep(1600);t.hidden=true}
+function setHdr(k){store[cur]=chat.innerHTML;cur=k;chat.innerHTML=store[k]||'';hname.textContent=CT[k].n;setAv(k);hsub.textContent='online';scroll()}
+
+/* rondas de conversa */
+async function round(opts){
+  const i=await choose(opts),o=opts[i];await outMsg(o.say);let d,rep;
+  if(o.t==='bold'){const ok=Math.random()<.5+charm/400;d=ok?12:-12;rep=ok?o.win:o.lose}
+  else if(o.t==='fool'){d=ri(4,8)+(laugh?4:0);rep=o.ok}
+  else{const good=charm>=30;d=good?10:3;rep=good?o.good:o.weak}
+  setCharm(d);chip(d);for(const m of rep)await inMsg(m)}
+
+/* ================= SHEET / ATIVIDADES ================= */
+function openSheet(html){sh.classList.remove('cover');sh.innerHTML=`<div class="sc">${html}</div>`;sh.hidden=false;sh.scrollTop=0;return sh.firstChild}
+function closeSheet(){sh.hidden=true;sh.classList.remove('cover');sh.innerHTML=''}
+function doneBtn(sc,gain){sc.insertAdjacentHTML('beforeend',`<div class="gain">❤️ +${gain} charme</div><button class="bt" id="ct">Voltar ao chat ➜</button>`);
+  return new Promise(r=>$('#ct').onclick=()=>{closeSheet();setCharm(gain);r(gain)})}
+
+function actDance(){return new Promise(res=>{
+  const sc=openSheet(`<h2 class="neon">💃 Dança no arraial</h2><p>A Célia desafiou-te! Pára o marcador na zona verde. 3 tentativas, e a música acelera.</p><div class="bar2"><div class="zone"></div><div class="mk" id="mk"></div></div><div class="m2" id="m2">Tentativa 1 de 3</div><button class="bt" id="stop">PÁRA!</button>`);
+  let tries=0,gain=0,pos=0,dir=1,speed=.9,raf,done=false,last=performance.now();const mk=$('#mk');
+  const loop=t=>{const dt=Math.min((t-last)/1000,.05);last=t;pos+=dir*speed*dt;if(pos>=1){pos=1;dir=-1}if(pos<=0){pos=0;dir=1}mk.style.left=pos*100+'%';raf=requestAnimationFrame(loop)};
+  raf=requestAnimationFrame(loop);
+  $('#stop').onclick=()=>{if(done)return;const s=Math.max(0,1-Math.abs(pos-.5)/.5),g=Math.round(s*s*4);gain+=g;tries++;speed+=.3;
+    sfx(g>=3?'good':g>=1?'tick':'bad');
+    $('#m2').textContent=(g>=3?'Passo perfeito! 🔥':g>=1?'Nada mau!':'Pisaste-lhe o pé! 😅')+' (+'+g+')';
+    if(tries>=3){done=true;cancelAnimationFrame(raf);$('#stop').remove();setTimeout(()=>doneBtn(sc,gain).then(res),700)}
+    else setTimeout(()=>{$('#m2').textContent='Tentativa '+(tries+1)+' de 3'},900)};
+})}
+
+function actDodge(level){return new Promise(res=>{
+  const sc=openSheet(`<h2 class="neon">🐂 Desvia dos touros!</h2><p>O Zé soltou a boiada! Aguenta 12 segundos. Toca no lado esquerdo/direito do ecrã ou usa os botões.</p><canvas id="cv" width="320" height="340"></canvas><div class="row"><button class="bt sm" id="L">◀</button><button class="bt sm" id="R">▶</button></div><div class="m2" id="m2">A correr…</div>`);
+  const cv=$('#cv'),c=cv.getContext('2d'),lx=[53,160,267],spd=[150,190,250][level],gap=[1,.8,.58][level];
+  let lane=1,hits=0,time=12,obs=[],spawn=.3,last=performance.now(),run=true,off=0,shake=0;
+  const mv=d=>{lane=Math.max(0,Math.min(2,lane+d))};
+  $('#L').onclick=()=>mv(-1);$('#R').onclick=()=>mv(1);
+  cv.onclick=e=>{const r=cv.getBoundingClientRect();mv(e.clientX-r.left<r.width/2?-1:1)};
+  const key=e=>{if(e.key==='ArrowLeft')mv(-1);if(e.key==='ArrowRight')mv(1)};addEventListener('keydown',key);
+  const loop=t=>{if(!run)return;const dt=Math.min((t-last)/1000,.05);last=t;time-=dt;spawn-=dt;off=(off+spd*dt)%40;
+    if(spawn<=0){obs.push({l:Math.floor(Math.random()*3),y:-30});spawn=gap*rnd(.7,1.3)}
+    obs.forEach(o=>{o.y+=spd*dt;if(!o.h&&o.l===lane&&o.y>265&&o.y<330){o.h=1;hits++;shake=.25;sfx('hit')}});
+    obs=obs.filter(o=>o.y<380);
+    c.save();if(shake>0){c.translate(rnd(-4,4),rnd(-4,4));shake-=dt}
+    c.fillStyle='#1b1b24';c.fillRect(0,0,320,340);
+    c.strokeStyle='#ffffff44';c.lineWidth=3;c.setLineDash([18,22]);c.lineDashOffset=-off;
+    [107,213].forEach(x=>{c.beginPath();c.moveTo(x,0);c.lineTo(x,340);c.stroke()});c.setLineDash([]);
+    c.textAlign='center';c.textBaseline='middle';c.font='34px serif';
+    obs.forEach(o=>{c.globalAlpha=o.h?.35:1;c.fillText('🐂',lx[o.l],o.y)});c.globalAlpha=1;
+    c.fillText('🛻',lx[lane],300);
+    c.font='bold 16px sans-serif';c.fillStyle='#fff';c.textAlign='left';c.fillText('⏱ '+Math.max(0,time).toFixed(1)+'s',8,16);c.textAlign='right';c.fillText('💥 '+hits,312,16);
+    c.restore();
+    if(time<=0){run=false;removeEventListener('keydown',key);
+      const g=Math.max(0,10-hits*4)+(level===2&&hits<=1?3:0);
+      $('#m2').textContent=hits===0?'Intocável! 🛻💨':hits<3?'Escapaste por pouco!':'Foste pisoteado 🥴';sfx(hits<3?'win':'lose');
+      setTimeout(()=>doneBtn(sc,g).then(v=>res({g:v,hits})),800);return}
+    requestAnimationFrame(loop)};
+  requestAnimationFrame(loop);
+})}
+
+function actRhythm(){return new Promise(res=>{
+  const P=[{e:'🎸',f:'viola'},{e:'🥁',f:'zab'},{e:'🚗',f:'horn'}];
+  const sc=openSheet(`<h2 class="neon">🎸 Toca a nossa moda</h2><p>Ouve e repete a sequência: viola, zabumba e buzina. 3 rondas e uma segunda chance.</p><div class="pads">${P.map((p,i)=>`<button class="pad" data-i="${i}">${p.e}</button>`).join('')}</div><div class="m2" id="m2"></div>`);
+  const pads=[...sc.querySelectorAll('.pad')];let round=0,seq=[],inp=[],gain=0,life=1,lock=true;
+  const hit=i=>{pads[i].classList.add('on');sfx(P[i].f);setTimeout(()=>pads[i].classList.remove('on'),220)};
+  const newSeq=()=>{seq=Array.from({length:3+round},()=>Math.floor(Math.random()*3))};
+  const show=async()=>{lock=true;inp=[];$('#m2').textContent='Ouve… 👂';await sleep(700);for(const i of seq){hit(i);await sleep(560)}lock=false;$('#m2').textContent='A tua vez! 👆'};
+  const end=()=>{lock=true;$('#m2').textContent=gain>=12?'Afinadíssimo! 🎶':gain>=4?'Dá pro gasto!':'Desafinaste… 😬';sfx(gain>=4?'win':'lose');setTimeout(()=>doneBtn(sc,gain).then(res),800)};
+  pads.forEach((b,i)=>b.onclick=()=>{if(lock)return;hit(i);inp.push(i);const k=inp.length-1;
+    if(inp[k]!==seq[k]){lock=true;if(life>0){life--;$('#m2').textContent='Errou! Mais uma chance…';sfx('bad');setTimeout(show,900)}else end();return}
+    if(inp.length===seq.length){gain+=4;round++;lock=true;sfx('good');
+      if(round>=3)setTimeout(end,500);else{$('#m2').textContent='Boa! Próxima ronda…';setTimeout(()=>{newSeq();show()},900)}}});
+  newSeq();show();
+})}
+
+function actRev(){return new Promise(res=>{
+  const sc=openSheet(`<h2 class="neon">🔥 Ronca o motor</h2><p>Toca o mais depressa que conseguires durante 5 segundos. A Célia está a ouvir!</p><div class="meter"><div id="tf"></div></div><div class="m2" id="m2">Toca para começar</div><button class="bt" id="tb">🔥 ACELERA!</button>`);
+  let n=0,left=5,iv=null,over=false;
+  $('#tb').onclick=()=>{if(over)return;n++;sfx('rev',Math.min(n,40));$('#tf').style.width=Math.min(n/38,1)*100+'%';
+    if(!iv)iv=setInterval(()=>{left=Math.max(0,left-.1);$('#m2').textContent=left.toFixed(1)+'s · '+n+' toques';
+      if(left<=0){clearInterval(iv);over=true;const g=Math.round(Math.min(n/38,1)*8);$('#tb').remove();
+        $('#m2').textContent=(g>=7?'A freguesia acordou! 🔊':g>=4?'Ronca decente.':'Isso foi um espirro, não um motor.')+' ('+n+' toques)';
+        setTimeout(()=>doneBtn(sc,g).then(res),600)}},100)};
+})}
+
+/* ================= ECRÃS ================= */
+const TRUCK=`<svg class="truck" viewBox="0 0 300 120"><polygon points="250,68 300,50 300,92" fill="#ffb02033"/><rect x="20" y="58" width="104" height="26" rx="3" fill="#c0182f"/><path d="M120 84V42H158L176 60H252V84Z" fill="#d81e3a"/><path d="M127 47H154L168 60H127Z" fill="#9fe7ff"/><rect x="14" y="80" width="244" height="8" rx="3" fill="#7d0f20"/><circle cx="248" cy="68" r="5" fill="#ffb020"/><circle cx="65" cy="88" r="17" fill="#111"/><circle cx="65" cy="88" r="8" fill="#888"/><circle cx="205" cy="88" r="17" fill="#111"/><circle cx="205" cy="88" r="8" fill="#888"/></svg>`;
+function gate(){openSheet(`<img class="hilux" alt="" src="${PIC.hilux}"><div class="b18">+18</div><p>Humor de arraial com malícia à mistura. Nada explícito, mas não é para menores.</p><button class="bt" id="ok">Tenho 18 anos ou mais</button>`);
+  $('#ok').onclick=async()=>{initAudio();musicStart();await testSound();title()}}
+function title(){let best='';try{best=localStorage.getItem('hilux_best')||''}catch(e){}
+  const scT=openSheet(`<div><h1 class="title neon">Vem prá<br>Hilux<small>o jogo da conquista</small></h1></div><div class="grow"></div><div class="stack"><p>És o <b>Rubinho</b>. A <b>Célia</b> está no rodeio e só te responde se mereceres. Conversa, dança, foge dos touros, toca viola e ronca o motor.</p><button class="bt" id="go">💬 Abrir conversa</button><button class="bt alt" id="tsnd">🔔 Testar som</button><div class="sub" id="snd"></div><div class="sub">Liga o som 🔊${best?' · Melhor charme: '+best+'/100':''}</div></div>`);scT.classList.add('cv');sh.classList.add('cover');
+  $('#go').onclick=()=>{closeSheet();play()};showSnd();$('#tsnd').onclick=async()=>{await testSound();showSnd()}}
+function endSheet(e){let best=charm;try{best=Math.max(charm,+localStorage.getItem('hilux_best')||0);localStorage.setItem('hilux_best',best)}catch(x){}
+  openSheet(`${FIN[FINK[e.title]]?`<img class="fin" alt="${e.title}" src="${FIN[FINK[e.title]]}">`:`<div class="emoji">${e.emoji}</div>`}<h2 class="neon">${e.title}</h2><p>${e.txt}</p><p><b>Charme final: ${charm}/100</b> · Melhor: ${best}</p><button class="bt" id="sh2">📲 Partilhar resultado</button><button class="bt alt" id="sg">🎵 Ouvir a música original</button><button class="bt alt" id="re">🔁 Jogar outra vez</button>`);
+  $('#re').onclick=()=>{closeSheet();play()};$('#sg').onclick=toggleSong;if(song&&!song.paused)sgBtn('⏸ Pausar a música original');
+  $('#sh2').onclick=async()=>{const text=`Vem prá Hilux 🚙🔥\nCharme: ${charm}/100\nFinal: ${e.title} ${e.emoji}\nConsegues fazer melhor?${location.protocol.indexOf('http')===0?'\n'+location.origin+location.pathname:''}`;
+    try{if(navigator.share){let data={text};const k=FINK[e.title];if(k){const bl=await (await fetch(FIN[k])).blob();const f=new File([bl],'vem-pra-hilux-'+k+'.jpg',{type:'image/jpeg'});if(navigator.canShare&&navigator.canShare({files:[f]}))data={text,files:[f]}}await navigator.share(data);return}}catch(x){}
+    try{await navigator.clipboard.writeText(text);$('#sh2').textContent='✅ Copiado!'}catch(x){$('#sh2').textContent='Copia manualmente 😅'}}}
+
+/* ================= GUIÃO ================= */
+const A1=[
+ {t:'bold',tag:'😏 Corajosa',say:"Cheiroso pra ti. A Hilux tá lá fora com o banco de couro aquecido e uma vaga com o teu nome.",
+  win:["Banco aquecido?? 🔥 Ok, ponto pra você.","Mas não te acostuma!"],lose:["Vaga com meu nome… tá se achando, né? 🙄","Baixa a bola, caubói."]},
+ {t:'fool',tag:'🤠 Foleira',say:"Passei perfume de feira, cinco reais o litro. Mas foi com carinho! 🧴",
+  ok:["HAHAHA litro?! 😂😂","Pelo menos é sincero."]},
+ {t:'poet',tag:'🌙 Poética',say:"Perfumei-me porque sabia que ia passar por ti. O vento levou o resto.",
+  good:["Aiiin 🥹 Quem te ensinou a falar assim?"],weak:["Bonitinho… mas ainda tô desconfiada 🤨"]}];
+const A2=[
+ {t:'bold',tag:'😏 Corajosa',say:"Fiquei a pensar em que parte da estrada de terra a gente se perdia. Juntos. De propósito.",
+  win:["Olha o malandro 😳","Tô vermelha, e não é do sol."],lose:["Passou do ponto, Rubinho 😒","Isso aí foi pressa. E eu odeio pressa."]},
+ {t:'fool',tag:'🤠 Foleira',say:"Ganhei um bolo de fubá da dona Lurdes. Guardei um pedaço pra ti, olha 🍰",
+  ok:["Guardou bolo pra mim?! Tá, ponto pro bolo 🍰😅"]},
+ {t:'poet',tag:'🌙 Poética',say:"Contei os minutos até tu apareceres. Foram 47. Não sou de contar, mas contei.",
+  good:["Ai, Rubinho… tá me derretendo 🫠"],weak:["Fofo… mas me prova mais."]}];
+const E1=[
+ {t:'bold',tag:'😏 Corajosa',say:"Foi. E faria de novo. Por um beijo teu eu enfrentava a boiada toda.",
+  win:["Para com isso que eu fico sem ar 🥵"],lose:["Beijo?? Já tá cobrando antes de entregar nada 😤"]},
+ {t:'fool',tag:'🤠 Foleira',say:"Foi pelo bolo de fubá. A rivalidade é antiga.",
+  ok:["HAHAHA o bolo sempre ganha 🍰😂"]},
+ {t:'poet',tag:'🌙 Poética',say:"Enfrentava dez touros só pra ouvir o teu riso a seguir.",
+  good:["Ai… 🥺 isso mexeu comigo, viu?"],weak:["Bonito. Falta provar."]}];
+const F1=[
+ {t:'bold',tag:'😏 Corajosa',say:"Sobe. O rádio já tá ligado e eu prometo olhar pra estrada. Quase sempre.",
+  win:["Quase sempre?! 😳 …tô indo."],lose:["Pede com jeito, Rubinho! 😠"]},
+ {t:'fool',tag:'🤠 Foleira',say:"Minha rainha do rodeio, aceita uma carona nesta humilde carruagem de quatro rodas? 🚙👑",
+  ok:["Carruagem… ridículo 😂 mas fofo."]},
+ {t:'poet',tag:'🌙 Poética',say:"Deixo a porta aberta e o rádio ligado. Tu decides quando sobes.",
+  good:["Tá… isso foi lindo demais 🥹"],weak:["Foi lindo, mas ainda quero mais."]}];
+
+async function play(){stopSong();if(musOn&&aud.paused)musicStart();
+  charm=20;laugh=false;for(const k in store)delete store[k];cur='celia';chat.innerHTML='';choices.innerHTML='';fake.hidden=false;
+  hname.textContent=CT.celia.n;setAv('celia');fill.style.width='20%';pill.textContent='❤️ 20';
+
+  /* ATO 1 — Célia */
+  sys('HOJE');
+  await inMsg("Rubinho?! Era você de camisa xadrez colado no balcão do churrasco? 👀");
+  await inMsg("Tá cheiroso demais pra quem veio direto do curral 😏");
+  await inVoice('celia1',"Tô rindo daqui, viu? Responde direito... que eu tô avaliando.");
+  await round(A1);
+  await inMsg("E o que cê fez de bonito hoje além de ficar parado no balcão?");
+  await round(A2);
+  await inMsg("Duvido que cê saiba dançar. Prova! 💃");
+  let g=await actDance();chip(g);
+  await inMsg(g>=9?"UAU. Onde cê escondeu esse requebrado? 🔥":g>=5?"Tá, até que dá pro gasto 😅":"Pisou no meu pé duas vezes, hein 🦶");
+
+  /* ATO 2 — Neide */
+  await notify('Neide 💅','Psiu, Rubinho! 🍿');setHdr('neide');sys('HOJE');
+  await inMsg("Psiu, Rubinho! Sou a Neide, amiga da Célia. Vi tudo do carrinho de pipoca 🍿");
+  await inMsg("Dica de graça: ela derrete com quem a faz rir. E detesta pressa 🤫");
+  const nq=[{tag:'🍺 Simpático',say:"Obrigado, Neide! Devo-te uma cerveja 🍺"},{tag:'😏 Atrevido',say:"Qual é o teu preço pra falar bem de mim?"},{tag:'😎 Orgulhoso',say:"Não preciso de ajuda, mas obrigado."}];
+  const ni=await choose(nq);await outMsg(nq[ni].say);
+  if(ni===0){laugh=true;setCharm(4);chip(4);await inMsg("Duas! E já ganhaste uma aliada 😉")}
+  if(ni===1){laugh=true;setCharm(3);chip(3);await inMsg("Duas cervejas e o teu silêncio sobre o meu ex 😂")}
+  if(ni===2){setCharm(-4);chip(-4);await inMsg("Boa sorte então, galã 🙃")}
+  await inSticker('🍿');
+
+  /* ATO 3 — Zé do Gado */
+  await notify('Zé do Gado 🐂','Ô Rubinho…');setHdr('ze');sys('HOJE');sfx('moo');
+  await inMsg("Ô Rubinho. Sei que cê tá de olho na Célia.");
+  await inMsg("Ela é minha desde o rodeio de 2019. Duvido que cê apareça no curral. 🐂");
+  const zq=[{tag:'🕊️ Calmo',say:"Calma, Zé. A Célia é dona do próprio nariz. Vamo conversar como homens?"},
+            {tag:'🔥 Provocador',say:"Vem tu e a tua boiada. A Hilux só atropela a vaidade."},
+            {tag:'🚫 Ignorar',say:"(bloquear contacto)"}];
+  const zi=await choose(zq);await outMsg(zq[zi].say);
+  const lv=[1,2,0][zi];
+  if(zi===0){setCharm(6);chip(6);await inMsg("Conversar?? Vou é te mostrar o meu touro! 🐂💨")}
+  if(zi===1){await inMsg("AGORA TÁ DECLARADO!!! SOLTEM O TOURO! 🐂🔥")}
+  if(zi===2){setCharm(2);chip(2);await inMsg("Me bloqueou?! Tô te ligando de outro número!! Tenho 14 primos, viu?! 📞🐂")}
+  const dz=await actDodge(lv);chip(dz.g);
+  await inMsg(dz.hits===0?"Tá, tá… respeito. Fica com a moça. 🏳️":dz.hits<3?"Escapou por pouco! Isso não acaba aqui 🐂":"Pisoteado! 🥴 Mas ainda tá de pé?");
+
+  /* ATO 4 — Célia outra vez */
+  await notify('Célia 🤠','Rubinho!! 😳');setHdr('celia');
+  await inMsg("Ouvi dizer que o Zé do Gado tá soltando touro na festa. Foi por minha causa? 😳");
+  await inImage('selfie',"Chapéu novo pra ocasião. Gostou?");
+  await round(E1);
+  await inVoice('celia2',"Cê tem coragem, hein? Mas coragem sozinha não basta. Quero ver se cê tem ritmo na viola.",true);
+  g=await actRhythm();chip(g);
+  await inMsg(g>=12?"Eita! Sabe tocar e tudo 🎶😍":g>=4?"Desafinou um bocadinho, mas tinha sentimento 😅":"Meu Deus, parece gato no telhado 🙈🐱");
+  await inMsg("Tá… tô chegando perto de ceder 👀");
+  await inMsg("Mas ronca esse motor pra eu saber que a Hilux é de verdade! 🔊");
+  await outVoice('rubinho',"Calma, Célia. Ainda tô só aquecendo o motor.",true);
+  await inMsg("Haha, tô ouvindo… agora mostra esse motor de verdade! 🔊");
+  g=await actRev();chip(g);
+  await inMsg(g>=7?"Vish… acordou a freguesia inteira 🔊😂":g>=4?"Ronca bonito, até que sim 😏":"Isso era motor ou chaleira? 🫖");
+  await inMsg("Então? Me convida direito.");
+  await round(F1);
+
+  /* FINAL */
+  await sleep(500);
+  let e;
+  if(charm>=100){startSong();
+    await inMsg("Sabe o que eu pensei? Cê merece mais que carona. Cê merece DUETO. 🎤");await inSticker('💃🕺');
+    e={emoji:'🎤🔥',title:'Dueto no palco',txt:"A Célia puxa-te para o palco do rodeio, agarra o microfone e a dupla nasce ali mesmo. Na plateia, até o Zé do Gado bate palmas (de má vontade). Final secreto desbloqueado!"};
+  }else if(charm>=75){
+    await inMsg("Tô descendo agora. Guarda o lugar do lado, caubói 🚙🔥");await inMsg("E liga o aquecimento do banco 😏");
+    e={emoji:'🔥🚙',title:'Ela sobe!',txt:"A Célia abre a porta, ajeita o chapéu e avisa: «Só até o fim da estrada, tá? Depois a gente vê.» O rádio toca alto e a Hilux some na poeira, com a festa toda a assobiar."};
+  }else if(charm>=50){
+    await inMsg("Boleia até o portão, combinado? 🌙");await inMsg("Amanhã eu apareço no rodeio. Melhora o repertório 😘");
+    e={emoji:'😏🌙',title:'Boleia até casa',txt:"A Célia aceita a carona, mas só até ao portão. Despede-se com um sorriso cúmplice e uma promessa que fica no ar."};
+  }else if(charm>=30){
+    await inMsg("Me manda o teu número… de amigo do bolo 🍰");await inMsg("Boa noite, Rubinho 😴");
+    e={emoji:'🍰🤝',title:'Amigo do bolo',txt:"A Célia guarda o teu número, mas na secção «amigos». Aprendeste a lição: pressa e perfume de feira não compram corações."};
+  }else{
+    await inMsg("Minha amiga chegou, vou nessa. Tchau, Rubinho 👋");sys('Célia ficou offline');
+    e={emoji:'🥶🍖',title:'Tampa épica',txt:"A Célia ri, balança a cabeça e entra no carro da Neide. O Rubinho fica sozinho com a Hilux e o churrasco já frio. Dizem que ainda está lá a ensaiar frases."};
+  }
+  sfx(charm>=50?'win':'lose');await sleep(900);endSheet(e);
+}
+
+/* ===== desbloqueio e teste de som ===== */
+const BEEP="data:audio/wav;base64,UklGRsQFAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YaAFAACAprq0lm1NRFd8o7m1mXFPRFR4n7i2nHRSRVJ0nLa3n3hVRVBxmLS4onxYRk5ulbK4pH9bR01qkbC5p4NeSExnjq65qYdhSUpkiqu4q4pkS0phh6m4rY5nTUleg6a3r5FrTklcgKO2sJRuUUhafKC1spdyU0hXeZ20s5p1VUlVdZqys515WElUcpextJ98WkpSb5OvtKKAXUtRbJCttaSDYExPaY2qtKaGY01OZomotKiJZk9OY4amtKqMaVBNYYOjs6uQbFJNX4Cgsq2ScFRNXHyesa6Vc1ZNWnmbsK+YdlhNWXaYrq+aeVtNV3OVrbCdfF1OVXCSq7Cff2BPVG2PqbChg2NQU2uMp7CjhmVRUmiJpbCliWhTUmaGo7Cmi2tUUWODoK+ojm5WUWF/nq6pkXFYUV99m62qk3RaUV16mayrlndcUVx3lqurmHpeUlp0k6msmn1gUllxkKesnH9jU1hvjaasnoJlVFdsi6SsoIVoVVZqiKKsoohqVlVohaCro4ptWFVmgp2rpI1vWVVkgJuqpY9yW1VifZmpppJ1XVVgepaop5R4X1VfeJSnqJZ6YVZedZGlqJh9Y1Zcc4+kqJp/ZVdbcIyiqJyCZ1hbboqgqJ2FallabIefqJ6HbFpZaoWdp6CJb1xZaIKbp6GMcV1ZZ4CYpqKOc19ZZX2WpaKQdmBZY3uUpKOSeGJZYniSo6SUe2RaYXaQoqSWfWZaYHSNoKSXf2hbX3KLn6SZgmpcXnCJnaSahGxdXm6Gm6Sbhm5eXWyEmqOciHBfXWuCmKOdinNhXWl/lqKejHViXWh9lKGfjndkXWd7kqCfkHllXmV5kJ+gkntnXmR3jp6gk31pX2N1jJyglYBrX2NzipugloJsYGJyiJqgl4RuYWJwhZifmIVwYmFvg5afmYdyY2FtgZWemol0ZGFsgJOemot2ZmFrfpGdm4x4Z2FqfJCcm456aWJpeo6bnI98amJoeIyanJF+bGNnd4qZnJJ/bWNmdYiYnJOBb2Rmc4eWnJSDcWVmcoWVm5WFcmZlcYOTm5aGdGdlcIGSmpaIdmhlboCQmpeJd2llbX6PmZeLeWpmbXyNmJeMe2xmbHuMl5iNfG1ma3mKlpiOfm5na3iJlZiPf3BnaneHlJiQgXFoanWFk5eRgnNpaXSEkpeShHRqaXOCkJeShXZraXKBj5aTh3dsaXGAjpaTiHltaXB+jJWTiXpuanB9i5SUintvam97ipOUi31wam56iJKUjH5xa255h5KUjX9zbG54hpGTjYF0bG13hJCTjoJ1bW12g46TjoN2bm11go2Sj4R3bm10gYySj4V5b210gIuRj4Z6cG5zfoqRkId7cW5zfYmQkIh8cm5yfIiPkIl9c29ye4ePkIl+dG9yeoaOkIp/dXBxeoSNj4qAdnBxeYOMj4uBd3FxeIKLj4uCeHJxd4GKjouDeXJxd4CJjoyEenNydoCJjYyFe3Rydn+IjYyFfHVydn6HjIyGfXVydX2GjIyGfnZzdXyFi4yHf3dzdXyEiouHf3h0dXuDiYuIgHl0dXuCiYuIgXl1dXqCiIuIgnp1dXqBh4qIgnt2dXmAh4qIg3x3dnl/homIg3x3dnl/hYmIhH14dnl+hIiIhH55d3l+hIiIhH55d3l9g4eIhH96d3l9goeHhX96eHl9goaHhYB7eHl8gYWHhYB8eXl8gYWGhYF8eXl8gISGhYF9enl8gISGhYF9enp8f4OFhYJ+e3p8f4OFhIJ+e3p8f4KEhIJ/fHt8f4KEhIJ/fHt8foGDhIJ/fXt8foGDg4KAfXx8foGCg4KAfnx9foCCg4KAfn19foCCgoKAfn19foCBgoGAf359foCBgYGAf35+foCBgYGAf35+f3+AgYGAf39/f3+AgICAf39/f3+AgICAf39/f3+AgIA=";
+let soundOK=null;
+async function testSound(){
+  let acOK=false,elOK=false;
+  try{initAudio();if(AC){await AC.resume();acOK=AC.state==='running';if(acOK){const t=AC.currentTime;tone(660,t,.12,'sine',.3,sfxG);tone(990,t+.13,.18,'sine',.3,sfxG)}}}catch(e){}
+  try{const a=new Audio(BEEP);a.volume=1;await a.play();elOK=true}catch(e){}
+  soundOK=acOK||elOK;return soundOK}
+function showSnd(){const el=$('#snd');if(!el)return;
+  el.innerHTML=soundOK===null?'':soundOK?'🔊 Som a funcionar. Se não ouves nada, aumenta o volume de multimédia e tira o modo silencioso.':'🔇 O som está bloqueado neste visor. Descarrega o ficheiro e abre-o no Chrome, depois toca em «Testar som».'}
+['pointerdown','touchend','click'].forEach(ev=>addEventListener(ev,()=>{if(AC&&AC.state!=='running')AC.resume().catch(()=>{})},{passive:true}));
+
+/* ===== música: fundo + original ===== */
+let song=null;
+try{aud.src=MUS.bg;song=new Audio(MUS.song);song.preload='none'}catch(e){}
+const sgBtn=t=>{const b=$('#sg');if(b)b.textContent=t};
+function stopSong(){if(!song)return;song.pause();try{song.currentTime=0}catch(e){}sgBtn('🎵 Ouvir a música original')}
+function startSong(){if(!song)return;aud.pause();synthStop();song.volume=.9;song.play().then(()=>sgBtn('⏸ Pausar a música original')).catch(()=>sgBtn('🔇 Som bloqueado neste visor'))}
+function toggleSong(){if(song&&!song.paused){song.pause();sgBtn('▶ Continuar a música original');if(musOn)musicStart()}else startSong()}
+if(song)song.onended=()=>{stopSong();if(musOn)musicStart()};
+
+gate();
+</script>
+<script>if('serviceWorker' in navigator&&location.protocol.indexOf('http')===0)addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));</script>
+</body>
+</html>
