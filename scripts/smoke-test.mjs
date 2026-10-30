@@ -48,6 +48,19 @@ if (fs.existsSync(path.join(root, 'index.html'))) {
     }
   }
   if (!inlineCount) fail('Não foi encontrado JavaScript inline para verificar.');
+
+  // Confirma que os recursos locais referidos pelo HTML e pelo Service Worker existem.
+  const assetRefs = new Set();
+  const assetPattern = /assets\/[A-Za-z0-9_./-]+\.(?:png|jpe?g|webp|gif|svg|mp3|ogg|wav|woff2?)/gi;
+  for (const match of html.matchAll(assetPattern)) assetRefs.add(match[0]);
+  if (fs.existsSync(path.join(root, 'sw.js'))) {
+    const worker = read('sw.js');
+    for (const match of worker.matchAll(assetPattern)) assetRefs.add(match[0]);
+  }
+  for (const asset of assetRefs) {
+    if (!fs.existsSync(path.join(root, asset))) fail('Recurso local referenciado mas inexistente: ' + asset);
+  }
+  if (!assetRefs.size) fail('Não foram encontrados recursos locais para validar.');
 }
 
 if (!process.exitCode) console.log('OK: ficheiros essenciais, manifest JSON e sintaxe JavaScript verificados.');
