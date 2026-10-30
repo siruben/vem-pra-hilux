@@ -23,7 +23,7 @@ Objetivo: melhorar a estabilidade, a experiência móvel e o acabamento visual s
 - [ ] Rever apresentação em ecrãs pequenos e orientação vertical.
 
 ## Fase 3 — Narrativa e acabamento
-- [ ] Criar galeria dos cinco finais desbloqueados.
+- [x] Criar galeria dos cinco finais desbloqueados, guardando os desbloqueios no armazenamento local.
 - [ ] Testar todas as faixas de pontuação e confirmar que cada final é alcançável.
 - [ ] Equilibrar pontuação e dificuldade dos minijogos.
 - [ ] Acrescentar variações narrativas sem aumentar desnecessariamente o peso da app.
@@ -46,5 +46,6 @@ Objetivo: melhorar a estabilidade, a experiência móvel e o acabamento visual s
 - Reproduzir cada nota de voz e alternar entre duas vozes.
 - Concluir dança, memória musical, desvio dos touros e aceleração.
 - Confirmar que os cinco finais podem ser apresentados em condições apropriadas.
+- Abrir a galeria, desbloquear um final e confirmar que o estado persiste após recarregar.
 - Instalar a PWA, atualizar a versão e testar modo avião.
 - Verificar a consola do navegador por erros e pedidos falhados.
