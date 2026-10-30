@@ -8,6 +8,7 @@ const fail = message => {
   process.exitCode = 1;
 };
 const read = file => fs.readFileSync(path.join(root, file), 'utf8');
+let checkedAssetCount = 0;
 
 for (const file of ['index.html', 'sw.js', 'manifest.webmanifest']) {
   if (!fs.existsSync(path.join(root, file))) fail('Ficheiro essencial em falta: ' + file);
@@ -60,7 +61,8 @@ if (fs.existsSync(path.join(root, 'index.html'))) {
   for (const asset of assetRefs) {
     if (!fs.existsSync(path.join(root, asset))) fail('Recurso local referenciado mas inexistente: ' + asset);
   }
+  checkedAssetCount = assetRefs.size;
   if (!assetRefs.size) fail('Não foram encontrados recursos locais para validar.');
 }
 
-if (!process.exitCode) console.log('OK: ficheiros essenciais, manifest JSON, sintaxe JavaScript e ' + assetRefs.size + ' recursos locais verificados.');
+if (!process.exitCode) console.log('OK: ficheiros essenciais, manifest JSON, sintaxe JavaScript e ' + checkedAssetCount + ' recursos locais verificados.');
