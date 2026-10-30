@@ -12,7 +12,8 @@ Objetivo: melhorar a estabilidade, a experiência móvel e o acabamento visual s
 - [x] Versionar corretamente o cache do Service Worker.
 - [x] Evitar que um recurso multimédia em falta impeça a instalação offline.
 - [x] Melhorar suporte a pedidos HTTP Range para áudio em cache, incluindo intervalos de sufixo e inválidos.
-- [ ] Rever fallback e concorrência da reprodução de música e vozes.
+- [x] Rever concorrência das notas de voz e atenuação da música durante a reprodução.
+- [ ] Rever fallback geral da reprodução de música.
 - [ ] Testar instalação, atualização e arranque offline em Android/Chrome e desktop.
 
 ## Fase 2 — Progresso e usabilidade
@@ -28,7 +29,7 @@ Objetivo: melhorar a estabilidade, a experiência móvel e o acabamento visual s
 - [ ] Acrescentar variações narrativas sem aumentar desnecessariamente o peso da app.
 
 ## Fase 4 — Qualidade contínua
-- [ ] Adicionar verificações automáticas de sintaxe e dos ficheiros essenciais.
+- [x] Adicionar verificações automáticas de sintaxe e dos ficheiros essenciais com GitHub Actions.
 - [ ] Documentar um roteiro de regressão antes de cada publicação.
 - [ ] Medir o peso total dos recursos e otimizar imagens/áudios se necessário.
 
