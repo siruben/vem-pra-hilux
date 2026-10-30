@@ -63,4 +63,4 @@ if (fs.existsSync(path.join(root, 'index.html'))) {
   if (!assetRefs.size) fail('Não foram encontrados recursos locais para validar.');
 }
 
-if (!process.exitCode) console.log('OK: ficheiros essenciais, manifest JSON, sintaxe JavaScript e ${assetRefs.size} recursos locais verificados.');
+if (!process.exitCode) console.log('OK: ficheiros essenciais, manifest JSON, sintaxe JavaScript e ' + assetRefs.size + ' recursos locais verificados.');
